@@ -1,20 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import axios from "axios";
 import loadingGif from "../assets/loading.gif";
-
+import { useParams, useLocation } from "react-router-dom";
 
 const FEATURED_API = "https://fakestoreapi.com/products";
 
 const HomePage = () => {
-
   const [products, setProducts] = useState([]);
-  console.log("products are:", products);
+
+  const params = useParams();
   const [loading, setLoading] = useState(false);
+  let location = useLocation();
 
   useEffect(() => {
-    getProducts(FEATURED_API);
-  }, [setProducts]);
+    if (getSecondPart(location?.search)) {
+      getProducts(
+        `${FEATURED_API}/category/${getSecondPart(location?.search)}`
+      );
+    } else {
+      getProducts(`${FEATURED_API}`);
+    }
+  }, [setProducts, getSecondPart(location?.search)]);
 
   const getProducts = (API) => {
     setLoading(true);
@@ -24,10 +31,19 @@ const HomePage = () => {
     });
   };
 
+  function getSecondPart(str = "= ") {
+    return str?.split("=")[1]?.replace("%20", " ");
+  }
+
+  // console.log(params)
+  // console.log(getSecondPart(location?.search))
+
   return (
     <div>
       {loading ? (
-        <img src={loadingGif} alt="loading" />
+        <div className="loading-image">
+          <img src={loadingGif} alt="loading" />
+        </div>
       ) : (
         <div className="product-container">
           {products?.map((product) => (
@@ -38,5 +54,4 @@ const HomePage = () => {
     </div>
   );
 };
-
 export default HomePage;
