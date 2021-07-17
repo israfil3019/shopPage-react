@@ -145,8 +145,8 @@ export default function Navbar({ product }) {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <Link to="/detailPage">
-                <MenuItem>
+            <Link to="/CartPage">
+                <MenuItem >
                     <IconButton aria-label="show" color="inherit">
                         <Badge >
                             <AssignmentTurnedInIcon />
