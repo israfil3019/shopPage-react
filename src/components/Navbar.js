@@ -21,6 +21,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import { withStyles } from "@material-ui/core/styles";
+import SideDrawer from "./drawer/Drawer";
 
 
 
@@ -188,7 +189,7 @@ export default function Navbar({ product }) {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        ddd
+                        <SideDrawer/>
                     </IconButton>
                     
                     <div className={classes.grow} />
